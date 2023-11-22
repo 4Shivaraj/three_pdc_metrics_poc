@@ -9,18 +9,39 @@ view: +three_pdc_metrics_demo{
   dimension: er_in_slo {
     type: number
     sql: ${TABLE}.er_in_slo ;;
-    hidden: no
+    hidden: yes
+    view_label: "Edge Repair"
   }
   dimension: er_out_slo {
     type: number
     sql: ${TABLE}.er_out_slo ;;
-    hidden: no
+    hidden: yes
+    view_label: "Edge Repair"
   }
   dimension: er_total {
     type: number
     sql: ${TABLE}.er_total ;;
-    hidden: no
+    hidden: yes
+    view_label: "Edge Repair"
   }
+  measure: er_slo_score {
+    type: number
+    sql: ROUND((SUM(${er_in_slo}) / SUM(${er_total})) * 100, 2) ;;
+    html:
+    {% if value >= 85 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 85 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 80 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
+    hidden: no
+    value_format: ".00\%"
+    view_label: "Edge Repair"
+    label: "Edge Repair (Target: 85%)"
+  }
+
 }
 
 view: _er_detail_data {

@@ -13,22 +13,60 @@ view: +three_pdc_metrics_demo{
   dimension: mmt1_slo_count {
     type: number
     sql: ${TABLE}.mmt1_slo_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Machine Maintenance"
   }
   dimension: mmt1_slo_sum {
     type: number
     sql: ${TABLE}.mmt1_slo_sum ;;
-    hidden: no
+    hidden: yes
+    view_label: "Machine Maintenance"
   }
   dimension: mmt23_slo_count {
     type: number
     sql: ${TABLE}.mmt23_slo_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Machine Maintenance"
   }
   dimension: mmt23_slo_sum {
     type: number
     sql: ${TABLE}.mmt23_slo_sum ;;
+    hidden: yes
+    view_label: "Machine Maintenance"
+  }
+  measure: mmt1_slo_average_score_base {
+    type: number
+    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmt1_slo_sum}), SUM(${mmt1_slo_count}))) * 100, 2) ;;
+    html:
+    {% if value >= 99 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 99 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 90 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
     hidden: no
+    value_format: "0.00\%"
+    view_label: "Machine Maintenance"
+    label: "MM Tier1 SLO Avg Score (Target: 99%)"
+  }
+  measure: mmt23_slo_average_score_base {
+    type: number
+    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmt23_slo_sum}), SUM(${mmt23_slo_count}))) * 100, 2) ;;
+    html:
+    {% if value >= 90 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 90 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 85 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
+    hidden: no
+    value_format: "0.00\%"
+    view_label: "Machine Maintenance"
+    label: "MM Tier 2&3 SLO Avg Score (Target: 99%)"
   }
 }
 

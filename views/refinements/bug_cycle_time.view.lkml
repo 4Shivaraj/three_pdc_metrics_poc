@@ -9,17 +9,37 @@ view: +three_pdc_metrics_demo{
   dimension: bct_met_count {
     type: number
     sql: ${TABLE}.bct_met_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Bug Cycle Time"
   }
   dimension: bct_miss_count {
     type: number
     sql: ${TABLE}.bct_miss_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Bug Cycle Time"
   }
   dimension: bct_total_count {
     type: number
     sql: ${TABLE}.bct_total_count ;;
+    hidden: yes
+    view_label: "Bug Cycle Time"
+  }
+  measure: bct_slo_score {
+    type: number
+    sql: ROUND(SAFE_DIVIDE(SUM(${bct_met_count}), SUM(${bct_total_count}))*100, 2) ;;
+    html:
+    {% if value >= 95 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 95 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 90 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
     hidden: no
+    value_format: "0.00\%"
+    view_label: "Bug Cycle Time"
+    label: "Builds Cycle Time (Target: 95%)"
   }
 }
 

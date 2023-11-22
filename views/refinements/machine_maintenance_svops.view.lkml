@@ -10,15 +10,34 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     sql: ${TABLE}.mm_svops_summary_data ;;
   }
-  dimension: mm_svops_slo_count {
+  dimension: mmtso_slo_count {
     type: number
     sql: ${TABLE}.mm_svops_slo_count ;;
     hidden: no
+    view_label: "Machine Maintenance Server Ops"
   }
-  dimension: mm_svops_slo_sum {
+  dimension: mmtso_slo_sum {
     type: number
     sql: ${TABLE}.mm_svops_slo_sum ;;
     hidden: no
+    view_label: "Machine Maintenance Server Ops"
+  }
+  measure: mmso_slo_average_score {
+    type: number
+    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
+    html:
+    {% if value >= 99 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 99 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 95 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
+    hidden: no
+    value_format: "0.00\%"
+    view_label: "Machine Maintenance Server Ops"
+    label: "MM ServOps SLO Avg Score (Target: 99%)"
   }
 }
 

@@ -13,12 +13,31 @@ view: +three_pdc_metrics_demo{
   dimension: irpt_slo_met {
     type: number
     sql: ${TABLE}.irpt_slo_met ;;
-    hidden: no
+    hidden: yes
+    view_label: "Interrupts Summary"
   }
   dimension: irpt_total_bugs {
     type: number
     sql: ${TABLE}.irpt_total_bugs ;;
+    hidden: yes
+    view_label: "Interrupts Summary"
+  }
+  measure: irpt_slo_score {
+    type: number
+    sql: ROUND(SAFE_DIVIDE(SUM(${irpt_slo_met}), SUM(${irpt_total_bugs}))*100,2) ;;
+    html:
+    {% if value >= 85 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    {% elsif value < 85 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    {% elsif value < 80 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    {% endif %}
+    ;;
     hidden: no
+    value_format: "0.00\%"
+    view_label: "Interrupts Summary"
+    label: "Interrupts SLO Score (Target: 85%)"
   }
 }
 

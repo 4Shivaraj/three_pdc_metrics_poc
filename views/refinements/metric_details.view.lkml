@@ -89,5 +89,22 @@ view: +three_pdc_metrics_demo {
     sql_latitude:  ${latitude} ;;
     hidden: no
   }
+  dimension_group: data_refresh {
+    type: time
+    timeframes: [raw, time, date, week, month, quarter, year]
+    sql: ${TABLE}.data_refresh ;;
+    hidden: no
+  }
+  dimension: last_data_refreshed {
+    type: string
+    sql: FORMAT_TIMESTAMP('%d-%b-%Y %I:%M %p, %Z', ${data_refresh_raw}, 'America/Los_Angeles');;
+    html: <p style="font-size:15px"> <b>Last Data Refreshed : </b>{{value}} </p> ;;
+    hidden: no
+  }
+  dimension: region_agg {
+    type: string
+    sql: MAX(${region}) ;;
+    hidden: no
+  }
   view_label: "Metric Details"
 }
