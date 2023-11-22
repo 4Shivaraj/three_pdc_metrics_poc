@@ -1,7 +1,7 @@
 connection: "@{CONNECTION_NAME}"
 
 # include all the views
-include: "/views/**/*.view.lkml"
+include: "/views/refinements/*.view.lkml"
 
 datagroup: three_pdc_metrics_poc_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -11,64 +11,64 @@ datagroup: three_pdc_metrics_poc_default_datagroup {
 persist_with: three_pdc_metrics_poc_default_datagroup
 
 explore: three_pdc_metrics_demo {
-    join: three_pdc_metrics_demo__ds_detail_data {
-      view_label: "Three Pdc Metrics Demo: Ds Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_detail_data}) as three_pdc_metrics_demo__ds_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__er_detail_data {
-      view_label: "Three Pdc Metrics Demo: Er Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.er_detail_data}) as three_pdc_metrics_demo__er_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__mm_detail_data {
-      view_label: "Three Pdc Metrics Demo: Mm Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_detail_data}) as three_pdc_metrics_demo__mm_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__mm_summary_data {
-      view_label: "Three Pdc Metrics Demo: Mm Summary Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_summary_data}) as three_pdc_metrics_demo__mm_summary_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__irpt_summary_data {
-      view_label: "Three Pdc Metrics Demo: Irpt Summary Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.irpt_summary_data}) as three_pdc_metrics_demo__irpt_summary_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__ds_rca_detail_data {
-      view_label: "Three Pdc Metrics Demo: Ds Rca Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_rca_detail_data}) as three_pdc_metrics_demo__ds_rca_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__mm_svops_detail_data {
-      view_label: "Three Pdc Metrics Demo: Mm Svops Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_detail_data}) as three_pdc_metrics_demo__mm_svops_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__mm_svops_summary_data {
-      view_label: "Three Pdc Metrics Demo: Mm Svops Summary Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_summary_data}) as three_pdc_metrics_demo__mm_svops_summary_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__bct_detail_summary_data {
-      view_label: "Three Pdc Metrics Demo: Bct Detail Summary Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.bct_detail_summary_data}) as three_pdc_metrics_demo__bct_detail_summary_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__botd_detail_summary_data {
-      view_label: "Three Pdc Metrics Demo: Botd Detail Summary Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.botd_detail_summary_data}) as three_pdc_metrics_demo__botd_detail_summary_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__bm_active_bugs_detail_data {
-      view_label: "Three Pdc Metrics Demo: Bm Active Bugs Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.bm_active_bugs_detail_data}) as three_pdc_metrics_demo__bm_active_bugs_detail_data ;;
-      relationship: one_to_many
-    }
-    join: three_pdc_metrics_demo__irpt_active_bugs_detail_data {
-      view_label: "Three Pdc Metrics Demo: Irpt Active Bugs Detail Data"
-      sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.irpt_active_bugs_detail_data}) as three_pdc_metrics_demo__irpt_active_bugs_detail_data ;;
-      relationship: one_to_many
-    }
+  join: _ds_detail_data {
+    view_label: "Data Security"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_detail_data}) as _ds_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _mm_detail_data {
+    view_label: "Machine Maintenance"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_detail_data}) as _mm_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _mm_summary_data {
+    view_label: "Machine Maintenance Summary"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_summary_data}) as _mm_summary_data ;;
+    relationship: one_to_many
+  }
+  join: _mm_svops_detail_data {
+    view_label: "Machine Maintenance Server Ops"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_detail_data}) as _mm_svops_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _mm_svops_summary_data {
+    view_label: "Machine Maintenance Server Ops Summary"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_summary_data}) as _mm_svops_summary_data ;;
+    relationship: one_to_many
+  }
+  join: _er_detail_data{
+    view_label: "Edge Repair"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.er_detail_data}) as _er_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _irpt_active_bugs_detail_data {
+    view_label: "Interrupts Active Bugs"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.irpt_active_bugs_detail_data}) as _irpt_active_bugs_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _irpt_summary_data {
+    view_label: "Interrupts Summary"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.irpt_summary_data}) as _irpt_summary_data ;;
+    relationship: one_to_many
+  }
+  join: _bct_detail_summary_data {
+    view_label: "Bug Cycle Time"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.bct_detail_summary_data}) as _bct_detail_summary_data ;;
+    relationship: one_to_many
+  }
+  join: _botd_detail_summary_data {
+    view_label: "Build OTD"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.botd_detail_summary_data}) as _botd_detail_summary_data ;;
+    relationship: one_to_many
+  }
+  join: _bm_active_bugs_detail_data {
+    view_label: "Bug Management SLO"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.bm_active_bugs_detail_data}) as _bm_active_bugs_detail_data ;;
+    relationship: one_to_many
+  }
+  join: _ds_rca_detail_data {
+    view_label: "Data Security RCA"
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_rca_detail_data}) as _ds_rca_detail_data ;;
+    relationship: one_to_many
+  }
 }
