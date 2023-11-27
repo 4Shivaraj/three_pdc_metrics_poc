@@ -1,5 +1,4 @@
 include: "/views/raw/*.view.lkml"
-include: "/includes/*.view.lkml"
 
 view: +three_pdc_metrics_demo {
 

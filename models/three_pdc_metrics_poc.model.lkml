@@ -81,6 +81,4 @@ explore: three_pdc_metrics_demo {
     and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro}
     and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
   }
-
-
 }
