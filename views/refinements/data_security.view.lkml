@@ -23,16 +23,22 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${sdd_hwops_violations}), SUM(${sdd_processed_count}))) * 100 ,2) ;;
     html:
     {% if value == 100 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 95 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% elsif value < 100 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no
     value_format: "0.00\%"
     label: "Data Security (Target: 100%)"
+    view_label: "Data Security"
+  }
+  measure: target {
+    type: number
+    sql: 1 ;;
+    hidden: no
     view_label: "Data Security"
   }
 }

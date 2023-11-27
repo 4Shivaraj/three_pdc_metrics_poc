@@ -29,11 +29,11 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((SUM(${er_in_slo}) / SUM(${er_total})) * 100, 2) ;;
     html:
     {% if value >= 85 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 85 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 80 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no

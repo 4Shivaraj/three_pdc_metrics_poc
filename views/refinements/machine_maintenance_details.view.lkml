@@ -39,11 +39,11 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmt1_slo_sum}), SUM(${mmt1_slo_count}))) * 100, 2) ;;
     html:
     {% if value >= 99 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 99 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 90 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no
@@ -56,17 +56,43 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmt23_slo_sum}), SUM(${mmt23_slo_count}))) * 100, 2) ;;
     html:
     {% if value >= 90 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 90 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 85 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no
     value_format: "0.00\%"
     view_label: "Machine Maintenance"
     label: "MM Tier 2&3 SLO Avg Score (Target: 99%)"
+  }
+  parameter: param_metro_type {
+    type: string
+    allowed_value: {
+      label: "Tier 1"
+      value: "Tier 1"
+    }
+    allowed_value: {
+      label: "Tier 2"
+      value: "Tier 2"
+    }
+    allowed_value: {
+      label: "Tier 3"
+      value: "Tier 3"
+    }
+    view_label: "Machine Maintenance"
+    hidden: no
+  }
+  measure: p_slo_average_score {
+    type: string
+    sql: CASE
+            WHEN {% parameter param_metro_type %} = 'Tier 1' THEN ${mmt1_slo_average_score_base}
+            WHEN {% parameter param_metro_type %} = 'Tier 2' OR {% parameter param_metro_type %} = 'Tier 3' THEN ${mmt23_slo_average_score_base}
+          END;;
+    hidden: no
+    view_label: "Machine Maintenance"
   }
 }
 
@@ -165,6 +191,42 @@ view: _mm_summary_data {
   dimension: total_time {
     type: number
     sql: total_time ;;
+    hidden: no
+  }
+  measure: ooslo_average_score {
+    type: number
+    sql: AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64)) ;;
+    value_format_name: percent_0
+    hidden: no
+  }
+  parameter: param_metro_type {
+    type: string
+    allowed_value: {
+      label: "Tier 1"
+      value: "Tier 1"
+    }
+    allowed_value: {
+      label: "Tier 2"
+      value: "Tier 2"
+    }
+    allowed_value: {
+      label: "Tier 3"
+      value: "Tier 3"
+    }
+  }
+  measure: p_slo_average_score {
+    type: string
+    sql: CASE
+            WHEN {% parameter param_metro_type %} = 'Tier 1' THEN ${ooslo_average_score}
+            ELSE ${ooslo_average_score}
+          END;;
+    hidden: no
+    view_label: "Machine Maintenance"
+  }
+
+  measure: target {
+    type: number
+    sql: 1 ;;
     hidden: no
   }
 }

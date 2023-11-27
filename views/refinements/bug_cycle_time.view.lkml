@@ -29,11 +29,11 @@ view: +three_pdc_metrics_demo{
     sql: ROUND(SAFE_DIVIDE(SUM(${bct_met_count}), SUM(${bct_total_count}))*100, 2) ;;
     html:
     {% if value >= 95 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 95 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 90 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no

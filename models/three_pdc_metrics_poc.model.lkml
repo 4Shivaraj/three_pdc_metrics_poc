@@ -2,6 +2,7 @@ connection: "@{CONNECTION_NAME}"
 
 # include all the views
 include: "/views/refinements/*.view.lkml"
+include: "/views/derived/*.view.lkml"
 
 datagroup: three_pdc_metrics_poc_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -11,6 +12,7 @@ datagroup: three_pdc_metrics_poc_default_datagroup {
 persist_with: three_pdc_metrics_poc_default_datagroup
 
 explore: three_pdc_metrics_demo {
+
   join: _ds_detail_data {
     view_label: "Data Security"
     sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_detail_data}) as _ds_detail_data ;;
@@ -71,4 +73,14 @@ explore: three_pdc_metrics_demo {
     sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_rca_detail_data}) as _ds_rca_detail_data ;;
     relationship: one_to_many
   }
+  join: map_mapping_details{
+    view_label: "Out of SLO Metros Map Details"
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
+    and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro}
+    and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
+  }
+
+
 }

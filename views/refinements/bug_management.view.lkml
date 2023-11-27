@@ -23,11 +23,11 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((1-SAFE_DIVIDE(SUM(${bm_escalated_count}), SUM(${bm_closed_count}))) *100,2) ;;
     html:
     {% if value >= 97 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 97 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 90 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no

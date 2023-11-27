@@ -33,20 +33,33 @@ view: +three_pdc_metrics_demo{
   measure: ds_rca_slo_score {
     type: number
     sql:  ROUND((SAFE_DIVIDE(SUM(${ds_rca_root_cause_met_sli_sum}), SUM(${ds_rca_root_cause_met_sli_count})))*100,2);;
-
     html:
     {% if value == 100 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 100 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 95 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     hidden: no
     value_format: "0.00\%"
     view_label: "Data Security RCA"
     label: "Data Security RCA (Target: 100%)"
+  }
+  measure: om_verified_score {
+    type: number
+    sql: SAFE_DIVIDE(SUM(${ds_rca_om_verified_met_sli_sum}), SUM(${ds_rca_om_verified_met_sli_count})) ;;
+    value_format_name: percent_0
+    hidden: no
+    view_label: "Data Security RCA"
+  }
+  measure: ds_rca_target {
+    type: number
+    sql: 1 ;;
+    value_format_name: percent_0
+    hidden: no
+    view_label: "Data Security RCA"
   }
 }
 view: _ds_rca_detail_data {

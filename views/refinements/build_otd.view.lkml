@@ -41,11 +41,11 @@ view: +three_pdc_metrics_demo{
     sql: ROUND((SUM(${builds_otd_numerator}) / SUM(${builds_otd_denominator})) * 100, 2)   ;;
     html:
     {% if value >= 90 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}</p>
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 90 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}</p>
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
     {% elsif value < 85 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}</p>
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
     value_format: "0.00\%"

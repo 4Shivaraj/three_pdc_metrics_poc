@@ -1,4 +1,5 @@
 include: "/views/raw/*.view.lkml"
+include: "/includes/*.view.lkml"
 
 view: +three_pdc_metrics_demo {
 
@@ -41,6 +42,37 @@ view: +three_pdc_metrics_demo {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.year_start_date ;;
+    hidden: no
+  }
+
+  parameter: param_duration_type {
+    type: string
+    allowed_value: {
+      label: "Year"
+      value: "Year"
+    }
+    allowed_value: {
+      label: "Quarter"
+      value: "Quarter"
+    }
+    allowed_value: {
+      label: "Month"
+      value: "Month"
+    }
+    allowed_value: {
+      label: "Week"
+      value: "Week"
+    }
+  }
+  dimension: p_duration_date {
+    type: string
+    sql: CASE
+            WHEN {% parameter param_duration_type %} = 'Year' THEN ${year_start_date}
+            WHEN {% parameter param_duration_type %} = 'Quarter' THEN ${quarter_start_date}
+            WHEN {% parameter param_duration_type %} = 'Month' THEN ${month_start_date}
+            WHEN {% parameter param_duration_type %} = 'Week' THEN ${week_start_date}
+            ELSE ${TABLE}.year_start_date
+          END;;
     hidden: no
   }
   dimension: week_num {
@@ -98,7 +130,10 @@ view: +three_pdc_metrics_demo {
   dimension: last_data_refreshed {
     type: string
     sql: FORMAT_TIMESTAMP('%d-%b-%Y %I:%M %p, %Z', ${data_refresh_raw}, 'America/Los_Angeles');;
-    html: <p style="font-size:15px"> <b>Last Data Refreshed : </b>{{value}} </p> ;;
+    html: <p style="font-size:15px; line-height:30px; text-align: left;">
+            <b>Last Data Refreshed</b> : {{value}}
+         </p>
+          ;;
     hidden: no
   }
   dimension: region_agg {
