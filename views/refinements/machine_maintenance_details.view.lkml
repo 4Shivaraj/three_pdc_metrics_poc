@@ -1,7 +1,6 @@
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
-
    dimension: mm_detail_data {
     hidden: yes
     sql: ${TABLE}.mm_detail_data ;;
@@ -68,32 +67,26 @@ view: +three_pdc_metrics_demo{
     view_label: "Machine Maintenance"
     label: "MM Tier 2&3 SLO Avg Score (Target: 99%)"
   }
-  parameter: param_metro_type {
-    type: string
-    allowed_value: {
-      label: "Tier 1"
-      value: "Tier 1"
-    }
-    allowed_value: {
-      label: "Tier 2"
-      value: "Tier 2"
-    }
-    allowed_value: {
-      label: "Tier 3"
-      value: "Tier 3"
-    }
-    view_label: "Machine Maintenance"
-    hidden: no
-  }
   measure: p_slo_average_score {
     type: string
     sql: CASE
-            WHEN {% parameter param_metro_type %} = 'Tier 1' THEN ${mmt1_slo_average_score_base}
-            WHEN {% parameter param_metro_type %} = 'Tier 2' OR {% parameter param_metro_type %} = 'Tier 3' THEN ${mmt23_slo_average_score_base}
-          END;;
+        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN ${mmt1_slo_average_score_base}
+        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 2' OR {{  _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 3' THEN ${mmt23_slo_average_score_base}
+      END;;
+    # html:
+    # {% if value >= 90 %}
+    # <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+    # {% elsif value < 90 %}
+    # <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+    # {% elsif value < 85 %}
+    # <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+    # {% endif %}
+    # ;;
     hidden: no
+    value_format: "0.00\%"
     view_label: "Machine Maintenance"
   }
+  view_label: "Machine Maintenance"
 }
 
 
@@ -129,11 +122,22 @@ view: _mm_detail_data {
     sql: is_test ;;
     hidden: no
   }
+
   dimension: metro_tier {
     type: string
     sql: metro_tier ;;
     hidden: no
   }
+
+  # dimension: metro_tier {
+  #   type: string
+  #   sql: CASE
+  #       WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN ${mm_metro_tier} = 'Tier 1'
+  #       WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN ${mm_metro_tier} = 'Tier 2'
+  #       WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 3' THEN ${mm_metro_tier} = 'Tier 3'
+  #     END;;
+  #   hidden: no
+  # }
   dimension: pool {
     type: string
     sql: pool ;;
@@ -164,6 +168,7 @@ view: _mm_detail_data {
     sql: slip_type ;;
     hidden: no
   }
+  view_label: "Machine Maintenance"
 }
 
 view: _mm_summary_data {
@@ -195,11 +200,11 @@ view: _mm_summary_data {
   }
   measure: ooslo_average_score {
     type: number
-    sql: AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64)) ;;
-    value_format_name: percent_0
+    sql: ROUND(AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64))* 100, 2) ;;
+
     hidden: no
   }
-  parameter: param_metro_type {
+  parameter: param_metro_tier_type {
     type: string
     allowed_value: {
       label: "Tier 1"
@@ -213,20 +218,32 @@ view: _mm_summary_data {
       label: "Tier 3"
       value: "Tier 3"
     }
+    hidden: no
   }
-  measure: p_slo_average_score {
+  measure: p_ooslo_average_score {
     type: string
     sql: CASE
-            WHEN {% parameter param_metro_type %} = 'Tier 1' THEN ${ooslo_average_score}
+            WHEN {% parameter param_metro_tier_type %} = 'Tier 1' THEN ${ooslo_average_score}
             ELSE ${ooslo_average_score}
           END;;
+    # html:
+    # {% if value >= 90 %}
+    # <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+    # {% elsif value < 90 %}
+    # <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+    # {% elsif value < 85 %}
+    # <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+    # {% endif %}
+    # ;;
     hidden: no
-    view_label: "Machine Maintenance"
+    value_format: "0.00\%"
   }
 
   measure: target {
     type: number
-    sql: 1 ;;
+    sql: 0.99 * 100 ;;
+    value_format: "0.00\%"
     hidden: no
   }
+  view_label: "Machine Maintenance Summary"
 }

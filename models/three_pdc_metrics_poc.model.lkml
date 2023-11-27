@@ -12,7 +12,6 @@ datagroup: three_pdc_metrics_poc_default_datagroup {
 persist_with: three_pdc_metrics_poc_default_datagroup
 
 explore: three_pdc_metrics_demo {
-
   join: _ds_detail_data {
     view_label: "Data Security"
     sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_detail_data}) as _ds_detail_data ;;
