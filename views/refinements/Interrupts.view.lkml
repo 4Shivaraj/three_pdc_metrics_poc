@@ -13,13 +13,13 @@ view: +three_pdc_metrics_demo{
   dimension: irpt_slo_met {
     type: number
     sql: ${TABLE}.irpt_slo_met ;;
-    hidden: yes
+    hidden: no
     view_label: "Interrupts Summary"
   }
   dimension: irpt_total_bugs {
     type: number
     sql: ${TABLE}.irpt_total_bugs ;;
-    hidden: yes
+    hidden: no
     view_label: "Interrupts Summary"
   }
   measure: irpt_slo_score {
@@ -34,47 +34,58 @@ view: +three_pdc_metrics_demo{
     <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
+    link: {
+      label: "3PDC Interrupts SLO"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/27?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
     hidden: no
     value_format: "0.00\%"
     view_label: "Interrupts Summary"
     label: "Interrupts SLO Score (Target: 85%)"
+  }
+  measure: target {
+    type: number
+    sql: 0.85 * 100 ;;
+    value_format: "0.00\%"
+    hidden: no
+    view_label: "Interrupts Summary"
   }
 }
 
 view: _irpt_active_bugs_detail_data {
   dimension: assign_flg {
     type: string
-    sql: assign_flg ;;
+    sql: _irpt_active_bugs_detail_data.assign_flg ;;
     hidden: no
   }
   dimension: assignee {
     type: string
-    sql: assignee ;;
+    sql: _irpt_active_bugs_detail_data.assignee ;;
     hidden: no
   }
   dimension: assignment_slo {
     type: string
-    sql: assignment_slo ;;
+    sql: _irpt_active_bugs_detail_data.assignment_slo ;;
     hidden: no
   }
   dimension: bug_id {
     type: string
-    sql: bug_id ;;
+    sql: _irpt_active_bugs_detail_data.bug_id ;;
     hidden: no
   }
   dimension: bug_status {
     type: string
-    sql: bug_status ;;
+    sql: _irpt_active_bugs_detail_data.bug_status ;;
     hidden: no
   }
   dimension: bug_type {
     type: string
-    sql: bug_type ;;
+    sql: _irpt_active_bugs_detail_data.bug_type ;;
     hidden: no
   }
   dimension: closure_slo {
     type: string
-    sql: closure_slo ;;
+    sql: _irpt_active_bugs_detail_data.closure_slo ;;
     hidden: no
   }
   dimension_group: creation {
@@ -82,7 +93,7 @@ view: _irpt_active_bugs_detail_data {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: creation_date ;;
+    sql: _irpt_active_bugs_detail_data.creation_date ;;
     hidden: no
   }
   dimension_group: last_modified {
@@ -90,52 +101,52 @@ view: _irpt_active_bugs_detail_data {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: last_modified_date ;;
+    sql: _irpt_active_bugs_detail_data.last_modified_date ;;
     hidden: no
   }
   dimension: latest_component_path {
     type: string
-    sql: latest_component_path ;;
+    sql: _irpt_active_bugs_detail_data.latest_component_path ;;
     hidden: no
   }
   dimension: manager_name {
     type: string
-    sql: manager_name ;;
+    sql: _irpt_active_bugs_detail_data.manager_name ;;
     hidden: no
   }
   dimension: priority {
     type: string
-    sql: priority ;;
+    sql: _irpt_active_bugs_detail_data.priority ;;
     hidden: no
   }
   dimension: response_slo {
     type: string
-    sql: response_slo ;;
+    sql: _irpt_active_bugs_detail_data.response_slo ;;
     hidden: no
   }
   dimension: slo_flg {
     type: string
-    sql: slo_flg ;;
+    sql: _irpt_active_bugs_detail_data.slo_flg ;;
     hidden: no
   }
   dimension: slo_status {
     type: string
-    sql: slo_status ;;
+    sql: _irpt_active_bugs_detail_data.slo_status ;;
     hidden: no
   }
   dimension: status {
     type: string
-    sql: status ;;
+    sql: _irpt_active_bugs_detail_data.status ;;
     hidden: no
   }
   dimension: title {
     type: string
-    sql: title ;;
+    sql: _irpt_active_bugs_detail_data.title ;;
     hidden: no
   }
   dimension: total {
     type: number
-    sql: total ;;
+    sql: _irpt_active_bugs_detail_data.total ;;
     hidden: no
   }
 }
@@ -144,12 +155,12 @@ view: _irpt_summary_data {
 
   dimension: bug_id {
     type: number
-    sql: bug_id ;;
+    sql: _irpt_active_bugs_detail_data.bug_id ;;
     hidden: no
   }
   dimension: slo_all_met {
     type: number
-    sql: slo_all_met ;;
+    sql: _irpt_summary_data.slo_all_met ;;
     hidden: no
   }
 }

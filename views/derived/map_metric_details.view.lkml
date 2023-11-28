@@ -1,35 +1,15 @@
 
 view: map_mapping_details {
-  parameter: param_duration_type {
-    type: string
-    allowed_value: {
-      label: "Year"
-      value: "Year"
-    }
-    allowed_value: {
-      label: "Quarter"
-      value: "Quarter"
-    }
-    allowed_value: {
-      label: "Month"
-      value: "Month"
-    }
-    allowed_value: {
-      label: "Week"
-      value: "Week"
-    }
-  }
-
   derived_table: {
     sql: WITH
           MasterData AS (
             SELECT
               *,
               CASE
-                WHEN {% parameter param_duration_type %} = 'Year' THEN year_start_date
-                WHEN {% parameter param_duration_type %} = 'Quarter' THEN quarter_start_date
-                WHEN {% parameter param_duration_type %} = 'Month' THEN month_start_date
-                WHEN {% parameter param_duration_type %} = 'Week' THEN week_start_date
+                WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Year' THEN year_start_date
+                WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Quarter' THEN quarter_start_date
+                WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Month' THEN month_start_date
+                WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Week' THEN week_start_date
                 ELSE year_start_date
               END AS duration_date
               FROM `@{GCP_PROJECT}.@{REPORTING_DATASET}.three_pdc_metrics_demo`),

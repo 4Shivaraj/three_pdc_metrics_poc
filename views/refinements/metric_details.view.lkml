@@ -1,4 +1,5 @@
 include: "/views/raw/*.view.lkml"
+include: "/views/derived/*.view.lkml"
 
 view: +three_pdc_metrics_demo {
 
@@ -66,11 +67,11 @@ view: +three_pdc_metrics_demo {
   dimension: p_duration_date {
     type: string
     sql: CASE
-            WHEN {% parameter param_duration_type %} = 'Year' THEN ${year_start_date}
-            WHEN {% parameter param_duration_type %} = 'Quarter' THEN ${quarter_start_date}
-            WHEN {% parameter param_duration_type %} = 'Month' THEN ${month_start_date}
-            WHEN {% parameter param_duration_type %} = 'Week' THEN ${week_start_date}
-            ELSE ${TABLE}.year_start_date
+            WHEN {% parameter param_duration_type %} = 'Year' THEN CAST(${year_start_date} AS STRING)
+            WHEN {% parameter param_duration_type %} = 'Quarter' THEN CAST(${quarter_start_date} AS STRING)
+            WHEN {% parameter param_duration_type %} = 'Month' THEN CAST(${month_start_date} AS STRING)
+            WHEN {% parameter param_duration_type %} = 'Week' THEN CAST(${week_start_date} AS STRING)
+            ELSE CAST(${TABLE}.year_start_date AS STRING)
           END;;
     hidden: no
   }

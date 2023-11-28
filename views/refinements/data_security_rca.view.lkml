@@ -42,6 +42,10 @@ view: +three_pdc_metrics_demo{
     <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
+    link: {
+      label: "3PDC Data Security RCA"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/23?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
     hidden: no
     value_format: "0.00\%"
     view_label: "Data Security RCA"

@@ -34,6 +34,10 @@ view: +three_pdc_metrics_demo{
     value_format: "0.00\%"
     label: "Data Security (Target: 100%)"
     view_label: "Data Security"
+    link: {
+      label: "3PDC Data Security"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/22?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
   }
   measure: target {
     type: number
