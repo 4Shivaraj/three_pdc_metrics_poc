@@ -1,6 +1,22 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Machine Maintenance ServOps
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Machine Maintenance Server operations
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+########################################################################################################
+#####
+##### START OF DIMENSIONS {
+#####
+########################################################################################################
 
   dimension: mm_svops_detail_data {
     hidden: yes
@@ -22,10 +38,23 @@ view: +three_pdc_metrics_demo{
     hidden: no
     view_label: "Machine Maintenance Server Ops"
   }
-  measure: mmso_slo_average_score {
-    type: number
-    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
-    html:
+
+########################################################################################################
+#####
+##### END OF DIMENSIONS }
+#####
+########################################################################################################
+
+########################################################################################################
+#####
+##### START OF MEASURES {
+#####
+########################################################################################################
+
+measure: mmso_slo_average_score {
+  type: number
+  sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
+  html:
     {% if value >= 99 %}
     <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
     {% elsif value < 99 %}
@@ -34,18 +63,30 @@ view: +three_pdc_metrics_demo{
     <p style="color: black; background-color: #db4437;">{{ value }}%</p>
     {% endif %}
     ;;
-    link: {
-      label: "3PDC Machine Maintenance Server Ops"
-      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/25?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
-    }
-    hidden: no
-    value_format: "0.00\%"
-    view_label: "Machine Maintenance Server Ops"
-    label: "MM ServOps SLO Avg Score (Target: 99%)"
+  link: {
+    label: "3PDC Machine Maintenance Server Ops"
+    url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/25?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
   }
+  hidden: no
+  value_format: "0.00\%"
+  view_label: "Machine Maintenance Server Ops"
+  label: "MM ServOps SLO Avg Score (Target: 99%)"
+}
+
+########################################################################################################
+#####
+##### END OF MEASURES }
+#####
+########################################################################################################
 }
 
 view: _mm_svops_detail_data {
+
+########################################################################################################
+#####
+##### START OF DIMENSIONS {
+#####
+########################################################################################################
 
   dimension: bug_id {
     type: string
@@ -57,11 +98,11 @@ view: _mm_svops_detail_data {
     sql: _mm_svops_detail_data.hwops_availability_score ;;
     hidden: no
   }
-  # dimension: metro_tier {
-  #   type: string
-  #   sql: _mm_svops_detail_data.metro_tier ;;
-  #   hidden: no
-  # }
+  dimension: metro_tier {
+    type: string
+    sql: _mm_svops_detail_data.metro_tier ;;
+    hidden: no
+  }
   dimension: pool {
     type: string
     sql: _mm_svops_detail_data.pool ;;
@@ -87,25 +128,50 @@ view: _mm_svops_detail_data {
     sql: _mm_svops_detail_data.slip_type ;;
     hidden: no
   }
+########################################################################################################
+#####
+##### END OF DIMENSIONS }
+#####
+########################################################################################################
+
 }
 
 view: _mm_svops_summary_data {
+
+########################################################################################################
+#####
+##### START OF DIMENSIONS {
+#####
+########################################################################################################
 
   dimension: hwops_time_above_buffer {
     type: number
     sql: _mm_svops_summary_data.hwops_time_above_buffer ;;
     hidden: no
   }
-  # dimension: metro_tier {
-  #   type: string
-  #   sql: _mm_svops_summary_data.metro_tier ;;
-  #   hidden: no
-  # }
+  dimension: metro_tier {
+    type: string
+    sql: _mm_svops_summary_data.metro_tier ;;
+    hidden: no
+  }
   dimension: svops_total_time {
     type: number
     sql: _mm_svops_summary_data.total_time ;;
     hidden: no
   }
+
+########################################################################################################
+#####
+##### END OF DIMENSIONS }
+#####
+########################################################################################################
+
+########################################################################################################
+#####
+##### START OF MEASURES {
+#####
+########################################################################################################
+
   measure: slo_average_time {
     type: number
     # ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
@@ -156,4 +222,9 @@ view: _mm_svops_summary_data {
     hidden: no
     view_label: "Machine Maintenance Server Ops"
   }
+########################################################################################################
+#####
+##### END OF MEASURES }
+#####
+########################################################################################################
 }
