@@ -1,4 +1,24 @@
 view: v_duration_date {
+  parameter: param_duration_type {
+    type: string
+    allowed_value: {
+      label: "Year"
+      value: "Year"
+    }
+    allowed_value: {
+      label: "Quarter"
+      value: "Quarter"
+    }
+    allowed_value: {
+      label: "Month"
+      value: "Month"
+    }
+    allowed_value: {
+      label: "Week"
+      value: "Week"
+    }
+  }
+
   derived_table: {
     sql: WITH
           RawDates AS (
@@ -22,26 +42,26 @@ view: v_duration_date {
           SELECT DISTINCT
           CAST (
           CASE
-            WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Year' THEN year_start_date
-            WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Quarter' THEN quarter_start_date
-            WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Month' THEN month_start_date
-            WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Week' THEN Week_start_date
+            WHEN {% parameter param_duration_type %} = 'Year' THEN year_start_date
+            WHEN {% parameter param_duration_type %} = 'Quarter' THEN quarter_start_date
+            WHEN {% parameter param_duration_type %} = 'Month' THEN month_start_date
+            WHEN {% parameter param_duration_type %} = 'Week' THEN Week_start_date
           ELSE year_start_date
           END AS STRING)
           AS duration_start_date
           FROM RawDates
           WHERE
           CASE
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Year' THEN year_num
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Quarter' THEN quarter_num
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Month' THEN month_num
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Week' THEN week_num
+          WHEN {% parameter param_duration_type %} = 'Year' THEN year_num
+          WHEN {% parameter param_duration_type %} = 'Quarter' THEN quarter_num
+          WHEN {% parameter param_duration_type %} = 'Month' THEN month_num
+          WHEN {% parameter param_duration_type %} = 'Week' THEN week_num
           END
           <= CASE
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Year' THEN 5
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Quarter' THEN 8
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Month' THEN 12
-          WHEN {{ three_pdc_metrics_demo.param_duration_type._parameter_value }} = 'Week' THEN 26
+          WHEN {% parameter param_duration_type %} = 'Year' THEN 5
+          WHEN {% parameter param_duration_type %} = 'Quarter' THEN 8
+          WHEN {% parameter param_duration_type %} = 'Month' THEN 12
+          WHEN {% parameter param_duration_type %} = 'Week' THEN 26
           END
   ;;
   }
@@ -50,6 +70,5 @@ view: v_duration_date {
     type: string
     sql: ${TABLE}.duration_start_date ;;
     hidden: no
-    suggest_dimension: three_pdc_metrics_demo.p_duration_date
   }
 }
