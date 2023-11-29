@@ -6,15 +6,44 @@ view: +three_pdc_metrics_demo{
     sql: ${TABLE}.ds_detail_data ;;
     hidden: yes
   }
-  dimension: ds_hwops_violations {
+  dimension: sdd_hwops_violations {
     type: number
     sql: ${TABLE}.ds_hwops_violations ;;
     hidden: no
+    view_label: "Data Security"
   }
-  dimension: ds_processed_count {
+  dimension: sdd_processed_count {
     type: number
     sql: ${TABLE}.ds_processed_count ;;
     hidden: no
+    view_label: "Data Security"
+  }
+  measure: sdd_slo_score_base {
+    type: number
+    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${sdd_hwops_violations}), SUM(${sdd_processed_count}))) * 100 ,2) ;;
+    html:
+    {% if value == 100 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+    {% elsif value < 95 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+    {% elsif value < 100 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+    {% endif %}
+    ;;
+    hidden: no
+    value_format: "0.00\%"
+    label: "Data Security (Target: 100%)"
+    view_label: "Data Security"
+    link: {
+      label: "3PDC Data Security"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/22?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
+  }
+  measure: target {
+    type: number
+    sql: 1 ;;
+    hidden: no
+    view_label: "Data Security"
   }
 }
 

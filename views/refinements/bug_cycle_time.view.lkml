@@ -9,17 +9,48 @@ view: +three_pdc_metrics_demo{
   dimension: bct_met_count {
     type: number
     sql: ${TABLE}.bct_met_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Builds Cycle Time"
   }
   dimension: bct_miss_count {
     type: number
     sql: ${TABLE}.bct_miss_count ;;
-    hidden: no
+    hidden: yes
+    view_label: "Builds Cycle Time"
   }
   dimension: bct_total_count {
     type: number
     sql: ${TABLE}.bct_total_count ;;
+    hidden: yes
+    view_label: "Builds Cycle Time"
+  }
+  measure: bct_slo_score {
+    type: number
+    sql: ROUND(SAFE_DIVIDE(SUM(${bct_met_count}), SUM(${bct_total_count}))*100, 2) ;;
+    html:
+    {% if value >= 95 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+    {% elsif value < 95 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+    {% elsif value < 90 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+    {% endif %}
+    ;;
+    link: {
+      label: "3PDC Builds Cycle Time"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/28?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
     hidden: no
+    value_format: "0.00\%"
+    view_label: "Builds Cycle Time"
+    label: "Builds Cycle Time (Target: 95%)"
+  }
+  measure: bct_target {
+    type: number
+    sql: 0.95 * 100 ;;
+    value_format: "0.00\%"
+    hidden: no
+    view_label: "Builds Cycle Time"
   }
 }
 

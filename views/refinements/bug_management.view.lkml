@@ -6,15 +6,46 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     sql: ${TABLE}.bm_active_bugs_detail_data ;;
   }
-  dimension: bm_closed_cnt {
+  dimension: bm_closed_count {
     type: number
     sql: ${TABLE}.bm_closed_cnt ;;
-    hidden: no
+    hidden: yes
+    view_label: "Bug Management SLO"
   }
-  dimension: bm_escalated_cnt {
+  dimension: bm_escalated_count {
     type: number
     sql: ${TABLE}.bm_escalated_cnt ;;
+    hidden: yes
+    view_label: "Bug Management SLO"
+  }
+  measure: bm_slo_score {
+    type: number
+    sql: ROUND((1-SAFE_DIVIDE(SUM(${bm_escalated_count}), SUM(${bm_closed_count}))) *100,2) ;;
+    html:
+    {% if value >= 97 %}
+    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+    {% elsif value < 97 %}
+    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+    {% elsif value < 90 %}
+    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+    {% endif %}
+    ;;
+    link: {
+      label: "3PDC Bug Management SLO"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/30?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
     hidden: no
+    value_format: "0.00\%"
+    view_label: "Bug Management SLO"
+    label: "Bug Managemnet SLO Score (Target: 97%)"
+
+  }
+  measure: bm_target {
+    type: number
+    sql: 0.95 * 100 ;;
+    value_format: "0.00\%"
+    hidden: no
+    view_label: "Bug Management SLO"
   }
 }
 

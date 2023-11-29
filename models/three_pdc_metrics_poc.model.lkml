@@ -2,6 +2,7 @@ connection: "@{CONNECTION_NAME}"
 
 # include all the views
 include: "/views/refinements/*.view.lkml"
+include: "/views/derived/*.view.lkml"
 
 datagroup: three_pdc_metrics_poc_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -52,7 +53,7 @@ explore: three_pdc_metrics_demo {
     relationship: one_to_many
   }
   join: _bct_detail_summary_data {
-    view_label: "Bug Cycle Time"
+    view_label: "Builds Cycle Time"
     sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.bct_detail_summary_data}) as _bct_detail_summary_data ;;
     relationship: one_to_many
   }
@@ -70,6 +71,20 @@ explore: three_pdc_metrics_demo {
     view_label: "Data Security RCA"
     sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.ds_rca_detail_data}) as _ds_rca_detail_data ;;
     relationship: one_to_many
+  }
+  join: map_mapping_details{
+    view_label: "Out of SLO Metros Map Details"
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
+    and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro}
+    and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
+  }
+  join: v_duration_date {
+    view_label: "Duration Date"
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${three_pdc_metrics_demo.p_duration_date} = ${v_duration_date.duration_start_date} ;;
   }
 }
 explore: emp_sample {}
