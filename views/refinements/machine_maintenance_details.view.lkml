@@ -110,15 +110,6 @@ view: +three_pdc_metrics_demo{
         WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN ${mmt1_slo_average_score_base}
         WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 2' OR {{  _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 3' THEN ${mmt23_slo_average_score_base}
       END;;
-    # html:
-    # {% if value >= 90 %}
-    # <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
-    # {% elsif value < 90 %}
-    # <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
-    # {% elsif value < 85 %}
-    # <p style="color: black; background-color: #db4437;">{{ value }}%</p>
-    # {% endif %}
-    # ;;
     hidden: no
     value_format: "0.00\%"
     view_label: "Machine Maintenance"
@@ -130,7 +121,6 @@ view: +three_pdc_metrics_demo{
 ########################################################################################################
 
 }
-
 
 view: _mm_detail_data {
 
@@ -173,15 +163,6 @@ view: _mm_detail_data {
   dimension: metro_tier {
     type: string
     sql: _mm_detail_data.metro_tier ;;
-    hidden: no
-  }
-  dimension: p_metro_tier {
-    type: string
-    sql: CASE
-        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN 'Tier 1'
-        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 2' THEN 'Tier 2'
-        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 3' THEN 'Tier 3'
-      END;;
     hidden: no
   }
   dimension: pool {
