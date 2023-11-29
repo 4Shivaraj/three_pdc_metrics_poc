@@ -78,7 +78,7 @@ explore: three_pdc_metrics_demo {
     relationship: one_to_many
     sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
     and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro}
-    and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
+    --and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
   }
   join: v_duration_date {
     view_label: "Duration Date"
