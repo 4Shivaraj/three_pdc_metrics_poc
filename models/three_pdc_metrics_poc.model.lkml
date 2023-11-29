@@ -87,3 +87,4 @@ explore: three_pdc_metrics_demo {
     sql_on: ${three_pdc_metrics_demo.p_duration_date} = ${v_duration_date.duration_start_date} ;;
   }
 }
+explore: emp_sample {}
