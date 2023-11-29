@@ -1,5 +1,4 @@
 include: "/views/raw/*.view.lkml"
-include: "/views/derived/*.view.lkml"
 
 view: +three_pdc_metrics_demo {
 
@@ -45,8 +44,28 @@ view: +three_pdc_metrics_demo {
     hidden: no
   }
 
-  parameter: param_duration_type {
+  dimension: _week_start_date {
     type: string
+    sql: CAST(${week_start_date} as string) ;;
+  }
+
+  dimension: _month_start_date {
+    type: string
+    sql: CAST(${month_start_date} as string) ;;
+  }
+
+  dimension: _quarter_start_date {
+    type: string
+    sql: CAST(${quarter_start_date} as string) ;;
+  }
+
+  dimension: _year_start_date {
+    type: string
+    sql: CAST(${year_start_date} as string) ;;
+  }
+
+  parameter: param_duration_type {
+    type: unquoted
     allowed_value: {
       label: "Year"
       value: "Year"
@@ -64,17 +83,31 @@ view: +three_pdc_metrics_demo {
       value: "Week"
     }
   }
+
   dimension: p_duration_date {
-    type: string
-    sql: CASE
-            WHEN {% parameter param_duration_type %} = 'Year' THEN ${year_start_date}
-            WHEN {% parameter param_duration_type %} = 'Quarter' THEN ${quarter_start_date}
-            WHEN {% parameter param_duration_type %} = 'Month' THEN ${month_start_date}
-            WHEN {% parameter param_duration_type %} = 'Week' THEN ${week_start_date}
-            ELSE ${TABLE}.year_start_date
-          END;;
+    sql:
+    {% if param_duration_type._parameter_value == 'Year' %}
+    ${_year_start_date}
+    {% elsif param_duration_type._parameter_value == 'Quarter' %}
+    ${_quarter_start_date}
+    {% elsif param_duration_type._parameter_value == 'Month' %}
+    ${_month_start_date}
+    {% elsif param_duration_type._parameter_value == 'Week' %}
+    ${_week_start_date}
+    {% endif %};;
     hidden: no
   }
+
+  # dimension: p_duration_date {
+  #   sql: CASE
+  #           WHEN {% parameter param_duration_type %} = 'Year' THEN ${year_start_date}
+  #           WHEN {% parameter param_duration_type %} = 'Quarter' THEN ${quarter_start_date}
+  #           WHEN {% parameter param_duration_type %} = 'Month' THEN ${month_start_date}
+  #           WHEN {% parameter param_duration_type %} = 'Week' THEN ${week_start_date}
+  #           ELSE ${TABLE}.year_start_date
+  #         END;;
+  #   hidden: no
+  # }
   dimension: week_num {
     type: number
     sql: ${TABLE}.week_num ;;

@@ -1,6 +1,8 @@
   view: three_pdc_metrics_demo {
     sql_table_name: `three_pdc_metrics_poc.three_pdc_metrics_demo` ;;
 
+    fields_hidden_by_default: yes
+
     dimension: bct_detail_summary_data {
       hidden: yes
       sql: ${TABLE}.bct_detail_summary_data ;;
