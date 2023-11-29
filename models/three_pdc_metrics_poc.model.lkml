@@ -72,3 +72,4 @@ explore: three_pdc_metrics_demo {
     relationship: one_to_many
   }
 }
+explore: emp_sample {}
