@@ -104,16 +104,6 @@ view: +three_pdc_metrics_demo{
     view_label: "Machine Maintenance"
     label: "MM Tier 2&3 SLO Avg Score (Target: 99%)"
   }
-  measure: p_slo_average_score {
-    type: string
-    sql: CASE
-        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 1' THEN ${mmt1_slo_average_score_base}
-        WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 2' OR {{  _mm_summary_data.param_metro_tier_type._parameter_value }} = 'Tier 3' THEN ${mmt23_slo_average_score_base}
-      END;;
-    hidden: no
-    value_format: "0.00\%"
-    view_label: "Machine Maintenance"
-  }
 ########################################################################################################
 #####
 ##### END OF MEASURES }
@@ -236,22 +226,6 @@ view: _mm_summary_data {
     sql: _mm_summary_data.total_time ;;
     hidden: no
   }
-  parameter: param_metro_tier_type {
-    type: string
-    allowed_value: {
-      label: "Tier 1"
-      value: "Tier 1"
-    }
-    allowed_value: {
-      label: "Tier 2"
-      value: "Tier 2"
-    }
-    allowed_value: {
-      label: "Tier 3"
-      value: "Tier 3"
-    }
-    hidden: no
-  }
 ########################################################################################################
 #####
 ##### END OF DIMENSIONS }
@@ -269,15 +243,6 @@ view: _mm_summary_data {
     sql: ROUND(AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64))* 100, 2) ;;
 
     hidden: no
-  }
-  measure: p_ooslo_average_score {
-    type: string
-    sql: CASE
-            WHEN {{ _mm_summary_data.param_metro_tier_type._parameter_value }} in ('Tier 1',  'Tier 2', 'Tier 3') THEN ${ooslo_average_score}
-            ELSE NULL
-          END;;
-    hidden: no
-    value_format: "0.00\%"
   }
   measure: target {
     type: number

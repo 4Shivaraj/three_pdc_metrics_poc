@@ -1,4 +1,3 @@
-
 view: map_mapping_details {
   parameter: param_duration_type {
     type: string

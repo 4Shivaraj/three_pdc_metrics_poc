@@ -63,21 +63,25 @@ view: +three_pdc_metrics_demo {
   dimension: _week_start_date {
     type: string
     sql: CAST(${week_start_date} as string) ;;
+    hidden: no
   }
 
   dimension: _month_start_date {
     type: string
     sql: CAST(${month_start_date} as string) ;;
+    hidden: no
   }
 
   dimension: _quarter_start_date {
     type: string
     sql: CAST(${quarter_start_date} as string) ;;
+    hidden: no
   }
 
   dimension: _year_start_date {
     type: string
     sql: CAST(${year_start_date} as string) ;;
+    hidden: no
   }
 
   parameter: param_duration_type {
@@ -98,6 +102,8 @@ view: +three_pdc_metrics_demo {
       label: "Week"
       value: "Week"
     }
+    hidden: no
+    label: "Duration Type"
   }
 
   dimension: p_duration_date {
@@ -112,18 +118,8 @@ view: +three_pdc_metrics_demo {
     ${_week_start_date}
     {% endif %};;
     hidden: no
+    label: "Duration Date"
   }
-
-  # dimension: p_duration_date {
-  #   sql: CASE
-  #           WHEN {% parameter param_duration_type %} = 'Year' THEN ${year_start_date}
-  #           WHEN {% parameter param_duration_type %} = 'Quarter' THEN ${quarter_start_date}
-  #           WHEN {% parameter param_duration_type %} = 'Month' THEN ${month_start_date}
-  #           WHEN {% parameter param_duration_type %} = 'Week' THEN ${week_start_date}
-  #           ELSE ${TABLE}.year_start_date
-  #         END;;
-  #   hidden: no
-  # }
   dimension: week_num {
     type: number
     sql: ${TABLE}.week_num ;;
@@ -191,6 +187,7 @@ view: +three_pdc_metrics_demo {
     hidden: no
   }
   view_label: "Metric Details"
+}
 
 ########################################################################################################
 #####
@@ -236,4 +233,4 @@ view: +three_pdc_metrics_demo {
 ##### END OF SETS }
 #####
 ########################################################################################################
-}
+# }

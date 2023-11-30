@@ -24,7 +24,8 @@ explore: three_pdc_metrics_demo {
   }
   join: _mm_summary_data {
     view_label: "Machine Maintenance Summary"
-    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_summary_data}) as _mm_summary_data ;;
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_summary_data}) as _mm_summary_data
+    on ${_mm_detail_data.metro_tier} = ${_mm_summary_data.metro_tier};;
     relationship: one_to_many
   }
   join: _mm_svops_detail_data {
@@ -34,7 +35,8 @@ explore: three_pdc_metrics_demo {
   }
   join: _mm_svops_summary_data {
     view_label: "Machine Maintenance Server Ops Summary"
-    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_summary_data}) as _mm_svops_summary_data ;;
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_summary_data}) as _mm_svops_summary_data
+    on ${_mm_svops_detail_data.metro_tier} = ${_mm_svops_summary_data.metro_tier} ;;
     relationship: one_to_many
   }
   join: _er_detail_data{
@@ -77,14 +79,8 @@ explore: three_pdc_metrics_demo {
     type: left_outer
     relationship: one_to_many
     sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
-    and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro}
-    --and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
-  }
-  join: v_duration_date {
-    view_label: "Duration Date"
-    type: left_outer
-    relationship: one_to_many
-    sql_on: ${three_pdc_metrics_demo.p_duration_date} = ${v_duration_date.duration_start_date} ;;
+    and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro} ;;
+    # and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
   }
 }
 explore: emp_sample {}
