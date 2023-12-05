@@ -85,4 +85,3 @@ explore: three_pdc_metrics_demo {
     # and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
   }
 }
-explore: emp_sample {}

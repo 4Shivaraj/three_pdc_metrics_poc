@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Build OTD
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Build OTD
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: botd_detail_summary_data {
     hidden: yes
@@ -36,6 +48,9 @@ view: +three_pdc_metrics_demo{
     hidden: no
     view_label: "Build OTD"
   }
+
+##### MEASURES
+
   measure: botd_slo_score {
     type: number
     sql: ROUND((SUM(${builds_otd_numerator}) / SUM(${builds_otd_denominator})) * 100, 2)   ;;
@@ -125,6 +140,9 @@ view: _botd_detail_summary_data {
     sql: _botd_detail_summary_data.viewpoint_link ;;
     hidden: no
   }
+
+##### MEASURES
+
   measure: slip_reason_count {
     type: number
     sql: count(${slip_reason}) ;;

@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Data Security
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Data security
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: ds_detail_data {
     sql: ${TABLE}.ds_detail_data ;;
@@ -18,6 +30,9 @@ view: +three_pdc_metrics_demo{
     hidden: no
     view_label: "Data Security"
   }
+
+##### MEASURES
+
   measure: sdd_slo_score_base {
     type: number
     sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${sdd_hwops_violations}), SUM(${sdd_processed_count}))) * 100 ,2) ;;
@@ -48,6 +63,9 @@ view: +three_pdc_metrics_demo{
 }
 
 view: _ds_detail_data {
+
+##### DIMENSIONS
+
   dimension: building {
     type: string
     sql: building ;;

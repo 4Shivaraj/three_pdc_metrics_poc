@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Interrupts
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Interrupts
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: irpt_active_bugs_detail_data {
     hidden: yes
@@ -22,6 +34,9 @@ view: +three_pdc_metrics_demo{
     hidden: no
     view_label: "Interrupts Summary"
   }
+
+##### MEASURES
+
   measure: irpt_slo_score {
     type: number
     sql: ROUND(SAFE_DIVIDE(SUM(${irpt_slo_met}), SUM(${irpt_total_bugs}))*100,2) ;;
@@ -53,6 +68,9 @@ view: +three_pdc_metrics_demo{
 }
 
 view: _irpt_active_bugs_detail_data {
+
+##### DIMENSIONS
+
   dimension: assign_flg {
     type: string
     sql: _irpt_active_bugs_detail_data.assign_flg ;;
@@ -152,6 +170,8 @@ view: _irpt_active_bugs_detail_data {
 }
 
 view: _irpt_summary_data {
+
+##### DIMENSIONS
 
   dimension: bug_id {
     type: number

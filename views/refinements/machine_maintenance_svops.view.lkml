@@ -12,11 +12,8 @@ include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
 
-########################################################################################################
-#####
-##### START OF DIMENSIONS {
-#####
-########################################################################################################
+
+##### DIMENSIONS
 
   dimension: mm_svops_detail_data {
     hidden: yes
@@ -39,54 +36,35 @@ view: +three_pdc_metrics_demo{
     view_label: "Machine Maintenance Server Ops"
   }
 
-########################################################################################################
-#####
-##### END OF DIMENSIONS }
-#####
-########################################################################################################
+##### MEASURES
 
-########################################################################################################
-#####
-##### START OF MEASURES {
-#####
-########################################################################################################
-
-measure: mmso_slo_average_score {
-  type: number
-  sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
-  html:
-    {% if value >= 99 %}
-    <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
-    {% elsif value < 99 %}
-    <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
-    {% elsif value < 95 %}
-    <p style="color: black; background-color: #db4437;">{{ value }}%</p>
-    {% endif %}
-    ;;
-  link: {
-    label: "3PDC Machine Maintenance Server Ops"
-    url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/25?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+  measure: mmso_slo_average_score {
+    type: number
+    sql: ROUND((1.0 - SAFE_DIVIDE(SUM(${mmtso_slo_sum}), SUM(${mmtso_slo_count}))) * 100,2);;
+    html:
+      {% if value >= 99 %}
+      <p style="color: black; background-color: #4285f4;">{{ value }}%</p>
+      {% elsif value < 99 %}
+      <p style="color: black; background-color: #fbc02d;">{{ value }}%</p>
+      {% elsif value < 95 %}
+      <p style="color: black; background-color: #db4437;">{{ value }}%</p>
+      {% endif %}
+      ;;
+    link: {
+      label: "3PDC Machine Maintenance Server Ops"
+      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/25?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+    }
+    hidden: no
+    value_format: "0.00\%"
+    view_label: "Machine Maintenance Server Ops"
+    label: "MM ServOps SLO Avg Score (Target: 99%)"
   }
-  hidden: no
-  value_format: "0.00\%"
-  view_label: "Machine Maintenance Server Ops"
-  label: "MM ServOps SLO Avg Score (Target: 99%)"
-}
-
-########################################################################################################
-#####
-##### END OF MEASURES }
-#####
-########################################################################################################
 }
 
 view: _mm_svops_detail_data {
 
-########################################################################################################
-#####
-##### START OF DIMENSIONS {
-#####
-########################################################################################################
+
+##### DIMENSIONS
 
   dimension: bug_id {
     type: string
@@ -128,21 +106,11 @@ view: _mm_svops_detail_data {
     sql: _mm_svops_detail_data.slip_type ;;
     hidden: no
   }
-########################################################################################################
-#####
-##### END OF DIMENSIONS }
-#####
-########################################################################################################
-
 }
 
 view: _mm_svops_summary_data {
 
-########################################################################################################
-#####
-##### START OF DIMENSIONS {
-#####
-########################################################################################################
+##### DIMENSIONS
 
   dimension: hwops_time_above_buffer {
     type: number
@@ -160,17 +128,7 @@ view: _mm_svops_summary_data {
     hidden: no
   }
 
-########################################################################################################
-#####
-##### END OF DIMENSIONS }
-#####
-########################################################################################################
-
-########################################################################################################
-#####
-##### START OF MEASURES {
-#####
-########################################################################################################
+##### MEASURES
 
   measure: slo_average_time {
     type: number
@@ -222,9 +180,4 @@ view: _mm_svops_summary_data {
     hidden: no
     view_label: "Machine Maintenance Server Ops"
   }
-########################################################################################################
-#####
-##### END OF MEASURES }
-#####
-########################################################################################################
 }

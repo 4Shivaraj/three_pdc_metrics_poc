@@ -1,4 +1,17 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Map Mapping Details
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Map Mapping Details
+########################################################################################################
+
 view: map_mapping_details {
+
+##### PARAMETERS
+
   parameter: param_duration_type {
     type: string
     allowed_value: {
@@ -190,6 +203,8 @@ view: map_mapping_details {
             ORDER BY 1, 2, 3 ;;
   }
 
+##### DIMENSIONS
+
   dimension_group: duration {
     type: time
     timeframes: [raw, date, week, month, quarter, year]
@@ -247,6 +262,9 @@ view: map_mapping_details {
     sql: ${TABLE}.slo_score_base ;;
     hidden: no
   }
+
+##### MEASURES
+
   measure: ooslo_metric_size {
     type: number
     sql: LOG(100 + ${map_metric}) ;;

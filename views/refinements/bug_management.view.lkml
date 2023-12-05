@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Bug Management
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Bug Management
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: bm_active_bugs_detail_data {
     hidden: yes
@@ -18,6 +30,9 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     view_label: "Bug Management SLO"
   }
+
+##### MEASURES
+
   measure: bm_slo_score {
     type: number
     sql: ROUND((1-SAFE_DIVIDE(SUM(${bm_escalated_count}), SUM(${bm_closed_count}))) *100,2) ;;
@@ -51,6 +66,8 @@ view: +three_pdc_metrics_demo{
 
 
 view: _bm_active_bugs_detail_data {
+
+##### DIMENSIONS
 
   dimension: assign_flg {
     type: string

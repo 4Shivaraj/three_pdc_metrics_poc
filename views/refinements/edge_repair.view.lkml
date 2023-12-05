@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Edge Repairs
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Edge Repairs.
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: er_detail_data {
     hidden: yes
@@ -24,6 +36,9 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     view_label: "Edge Repair"
   }
+
+##### MEASURES
+
   measure: er_slo_score {
     type: number
     sql: ROUND((SUM(${er_in_slo}) / SUM(${er_total})) * 100, 2) ;;
@@ -66,6 +81,9 @@ view: +three_pdc_metrics_demo{
 }
 
 view: _er_detail_data {
+
+##### DIMENSIONS
+
   dimension: bug_id {
     type: number
     sql: _er_detail_data.bug_id ;;
@@ -154,6 +172,9 @@ view: _er_detail_data {
     sql: _er_detail_data.total ;;
     hidden: no
   }
+
+##### MEASURES
+
   measure: out_slo_bug {
     type: number
     sql: CASE WHEN ${out_slo} = 1 THEN ${bug_id} ELSE NULL END ;;

@@ -1,6 +1,18 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Data Security RCA
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Data Security RCA
+########################################################################################################
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: ds_rca_detail_data {
     hidden: yes
@@ -30,6 +42,9 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     view_label: "Data Security RCA"
   }
+
+##### MEASURES
+
   measure: ds_rca_slo_score {
     type: number
     sql:  ROUND((SAFE_DIVIDE(SUM(${ds_rca_root_cause_met_sli_sum}), SUM(${ds_rca_root_cause_met_sli_count})))*100,2);;
@@ -67,6 +82,8 @@ view: +three_pdc_metrics_demo{
   }
 }
 view: _ds_rca_detail_data {
+
+##### DIMENSIONS
 
   dimension: bug_id {
     type: number

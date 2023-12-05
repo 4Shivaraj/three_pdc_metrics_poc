@@ -1,6 +1,19 @@
+########################################################################################################
+# Update Log:
+#   29/11/2023 — Builds Cycle Time
+########################################################################################################
+
+########################################################################################################
+# Description:
+#   Purpose of this table is to include all the details of Builds Cycle Time
+########################################################################################################
+
+
 include: "/views/refinements/*.view.lkml"
 
 view: +three_pdc_metrics_demo{
+
+##### DIMENSIONS
 
   dimension: bct_detail_summary_data {
     hidden: yes
@@ -24,6 +37,9 @@ view: +three_pdc_metrics_demo{
     hidden: yes
     view_label: "Builds Cycle Time"
   }
+
+##### MEASURES
+
   measure: bct_slo_score {
     type: number
     sql: ROUND(SAFE_DIVIDE(SUM(${bct_met_count}), SUM(${bct_total_count}))*100, 2) ;;
@@ -55,6 +71,8 @@ view: +three_pdc_metrics_demo{
 }
 
 view: _bct_detail_summary_data {
+
+##### DIMENSIONS
 
   dimension: bct_met_count {
     type: number
