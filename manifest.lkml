@@ -4,7 +4,7 @@ constant: CONNECTION_NAME {
 }
 
 constant: GCP_PROJECT {
-  value: "parabolic-braid-402009"
+  value: "fabled-equator-375717"
   export: override_required
 }
 
