@@ -30,7 +30,8 @@ explore: three_pdc_metrics_demo {
   }
   join: _mm_svops_detail_data {
     view_label: "Machine Maintenance Server Ops"
-    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_detail_data}) as _mm_svops_detail_data ;;
+    sql: LEFT JOIN UNNEST(${three_pdc_metrics_demo.mm_svops_detail_data}) as _mm_svops_detail_data
+    on ${_mm_summary_data.metro_tier} = ${_mm_svops_detail_data.metro_tier} ;;
     relationship: one_to_many
   }
   join: _mm_svops_summary_data {
@@ -80,6 +81,7 @@ explore: three_pdc_metrics_demo {
     relationship: one_to_many
     sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
     and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro} ;;
+    # fields: [-map_mapping_details.param_duration_type]
     # and ${three_pdc_metrics_demo.p_duration_date} = ${map_mapping_details.duration_date};;
   }
 }
