@@ -30,6 +30,7 @@ view: map_mapping_details {
       label: "Week"
       value: "Week"
     }
+    view_label: "Out of SLO Metros Map Details"
   }
 
   derived_table: {
@@ -211,55 +212,68 @@ view: map_mapping_details {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.duration_date ;;
+    view_label: "Out of SLO Metros Map Details"
+    hidden: no
   }
 
   dimension: data_source {
     type: string
     sql: ${TABLE}.data_source ;;
+    view_label: "Out of SLO Metros Map Details"
+    hidden: no
   }
   dimension: region {
     type: string
     sql: ${TABLE}.region ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: metro {
     type: string
     sql: ${TABLE}.metro ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: target {
     type: number
     sql: ${TABLE}.target ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: numerator {
     type: number
     sql: ${TABLE}.numerator ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: denominator {
     type: number
     sql: ${TABLE}.denominator ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: map_metric {
     type: number
     sql: ${TABLE}.map_metric ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
   dimension: slo_score_base {
     type: number
     sql: ${TABLE}.slo_score_base ;;
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
 
@@ -269,6 +283,7 @@ view: map_mapping_details {
     type: number
     sql: LOG(100 + ${map_metric}) ;;
     value_format_name: decimal_4
+    view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
 }
