@@ -64,7 +64,6 @@ explore: three_pdc_metrics_demo {
     relationship: one_to_many
   }
   join: map_mapping_details{
-    view_label: "Out of SLO Metros Map Details"
     type: left_outer
     relationship: one_to_many
     sql_on: ${three_pdc_metrics_demo.region} = ${map_mapping_details.region}
