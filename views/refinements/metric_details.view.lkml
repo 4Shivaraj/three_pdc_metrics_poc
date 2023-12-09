@@ -45,8 +45,11 @@ view: +three_pdc_metrics_demo {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.calendar_date ;;
+    # label: "Day"
+    # label: "Bug Created"
+    # label: "Snapshot Date"
     view_label: "Metric Details"
-    hidden: yes
+    hidden: no
   }
 
   dimension_group: week_start {

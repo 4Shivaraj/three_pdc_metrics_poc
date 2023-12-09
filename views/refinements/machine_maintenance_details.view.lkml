@@ -65,8 +65,8 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Machine Maintenance"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/6?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 1"
-      }
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/10?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 1"
+    }
     value_format: "0.00\%"
     label: "MM Tier1 SLO Avg Score (Target: 99%)"
     view_label: "Machine Maintenance"
@@ -86,7 +86,7 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Machine Maintenance"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/6?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 2, Tier 3"
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/10?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 2, Tier 3"
     }
     value_format: "0.00\%"
     label: "MM Tier 2&3 SLO Avg Score (Target: 99%)"
@@ -218,10 +218,19 @@ view: _mm_summary_data {
 
 ##### MEASURES
 
+  measure: slo_average_score {
+    type: number
+    sql: ROUND((1.0 - (AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64)))) * 100, 2) ;;
+    value_format: "0.00\%"
+    view_label: "Machine Maintenance Summary"
+    hidden: no
+  }
+
   measure: ooslo_average_score {
     type: number
     sql: ROUND(AVG(CAST((${time_above_buffer}) AS FLOAT64) / CAST((${total_time}) AS FLOAT64))* 100, 2) ;;
     value_format: "0.00\%"
+    label: "Out of SLO Average Score"
     view_label: "Machine Maintenance Summary"
     hidden: no
   }

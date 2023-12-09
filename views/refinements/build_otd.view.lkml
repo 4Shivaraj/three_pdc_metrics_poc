@@ -22,20 +22,23 @@ view: +three_pdc_metrics_demo{
   dimension: botd_met_count {
     type: number
     sql: ${TABLE}.botd_met_count ;;
+    label: "Met Count"
     view_label: "Build OTD"
-    hidden: yes
+    hidden: no
   }
   dimension: botd_miss_count {
     type: number
     sql: ${TABLE}.botd_miss_count ;;
+    label: "Miss Count"
     view_label: "Build OTD"
     hidden: no
   }
   dimension: botd_total_count {
     type: number
     sql: ${TABLE}.botd_total_count ;;
+    label: "Total Count"
     view_label: "Build OTD"
-    hidden: yes
+    hidden: no
   }
   dimension: builds_otd_numerator {
     type: number
@@ -66,9 +69,10 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Build OTD"
-      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/22?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/15?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
     }
     value_format: "0.00\%"
+    # label: "SLO Score"
     label: "Build OTD (Target: 90%)"
     view_label: "Build OTD"
     hidden: no
@@ -77,6 +81,7 @@ view: +three_pdc_metrics_demo{
     type: number
     sql: 0.99 * 100 ;;
     value_format: "0.00\%"
+    label: "Target"
     view_label: "Build OTD"
     hidden: no
   }

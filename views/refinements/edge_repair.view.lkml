@@ -54,7 +54,8 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Edge Repair"
-      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/26?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/12?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+
     }
     value_format: "0.00\%"
     label: "Edge Repair (Target: 85%)"
@@ -194,8 +195,9 @@ view: _er_detail_data {
   }
   measure: edge_repiar_target {
     type: number
-    sql: 0.99 * 100 ;;
+    sql: 0.90 * 100 ;;
     value_format: "0.00\%"
+    label: "Target"
     view_label: "Edge Repair"
     hidden: no
   }

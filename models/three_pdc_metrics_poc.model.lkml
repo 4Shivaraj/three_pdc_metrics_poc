@@ -3,6 +3,7 @@ connection: "@{CONNECTION_NAME}"
 # include all the views
 include: "/views/refinements/*.view.lkml"
 include: "/views/derived/*.view.lkml"
+include: "/dashboards/*.dashboard.lookml"
 
 datagroup: three_pdc_metrics_poc_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -70,3 +71,5 @@ explore: three_pdc_metrics_demo {
     and ${three_pdc_metrics_demo.metro} = ${map_mapping_details.metro} ;;
   }
 }
+
+explore: map_mapping_details {}

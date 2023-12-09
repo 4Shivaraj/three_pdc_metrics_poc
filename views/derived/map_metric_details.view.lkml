@@ -219,6 +219,7 @@ view: map_mapping_details {
   dimension: data_source {
     type: string
     sql: ${TABLE}.data_source ;;
+    label: "Performance Metrics"
     view_label: "Out of SLO Metros Map Details"
     hidden: no
   }
@@ -243,6 +244,13 @@ view: map_mapping_details {
   dimension: longitude {
     type: number
     sql: ${TABLE}.longitude ;;
+    view_label: "Out of SLO Metros Map Details"
+    hidden: no
+  }
+  dimension: map_details {
+    type: location
+    sql_longitude: ${longitude} ;;
+    sql_latitude:  ${latitude} ;;
     view_label: "Out of SLO Metros Map Details"
     hidden: no
   }

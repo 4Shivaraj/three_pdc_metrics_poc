@@ -22,12 +22,14 @@ view: +three_pdc_metrics_demo{
   dimension: sdd_hwops_violations {
     type: number
     sql: ${TABLE}.ds_hwops_violations ;;
+    label: "Slip Count"
     view_label: "Data Security"
     hidden: no
   }
   dimension: sdd_processed_count {
     type: number
     sql: ${TABLE}.ds_processed_count ;;
+    label: "Processed Count"
     view_label: "Data Security"
     hidden: no
   }
@@ -48,16 +50,19 @@ view: +three_pdc_metrics_demo{
     ;;
     value_format: "0.00\%"
     label: "Data Security (Target: 100%)"
+    # label: "SLO Score"
     link: {
       label: "3PDC Data Security"
-      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/22?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/8?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
     }
     view_label: "Data Security"
     hidden: no
   }
-  measure: target {
+  measure: ds_target {
     type: number
-    sql: 1 ;;
+    sql: 1 * 100 ;;
+    value_format: "0.00\%"
+    label: "Target"
     view_label: "Data Security"
     hidden: no
   }

@@ -27,12 +27,14 @@ view: +three_pdc_metrics_demo{
   dimension: irpt_slo_met {
     type: number
     sql: ${TABLE}.irpt_slo_met ;;
+    label: "SLO Met"
     view_label: "Interrupts Active Bugs"
     hidden: no
   }
   dimension: irpt_total_bugs {
     type: number
     sql: ${TABLE}.irpt_total_bugs ;;
+    label: "Total Bugs"
     view_label: "Interrupts Active Bugs"
     hidden: no
   }
@@ -53,16 +55,20 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Interrupts SLO"
-      url: "https://69af6669-814a-475b-8caf-6e43a13b16e2.looker.app/dashboards/27?&Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}"
+      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/13?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+
     }
     value_format: "0.00\%"
+    # label: "SLO Score"
     label: "Interrupts SLO Score (Target: 85%)"
+    # label: "SLO Score"
     view_label: "Interrupts Active Bugs"
     hidden: no
   }
-  measure: target {
+  measure: irpt_target {
     type: number
     sql: 0.85 * 100 ;;
+    label: "Target"
     value_format: "0.00\%"
     view_label: "Interrupts Active Bugs"
     hidden: no
