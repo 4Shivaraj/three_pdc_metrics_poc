@@ -54,7 +54,7 @@ view: +three_pdc_metrics_demo{
       ;;
     link: {
       label: "3PDC Machine Maintenance Server Ops"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/11?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 1, Tier 2, Tier 3"
+      url: "/dashboards/three_pdc_metrics_poc::3pdc_machine_maintenance_servops?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}&Metro%20Tier=Tier 1, Tier 2, Tier 3"
     }
     value_format: "0.00\%"
     label: "MM ServOps SLO Avg Score (Target: 99%)"

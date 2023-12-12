@@ -48,7 +48,7 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Bug Management SLO"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/16?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+      url: "/dashboards/three_pdc_metrics_poc::3pdc_bug_management?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
     }
     value_format: "0.00\%"
     label: "Bug Managemnet SLO Score (Target: 97%)"
@@ -79,43 +79,43 @@ view: _bm_active_bugs_detail_data {
 
   dimension: assign_flg {
     type: string
-    sql: assign_flg ;;
+    sql: _bm_active_bugs_detail_data.assign_flg ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: assignee {
     type: string
-    sql: assignee ;;
+    sql: _bm_active_bugs_detail_data.assignee ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: assignment_slo {
     type: string
-    sql: assignment_slo ;;
+    sql: _bm_active_bugs_detail_data.assignment_slo ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: bug_id {
     type: string
-    sql: bug_id ;;
+    sql: _bm_active_bugs_detail_data.bug_id ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: bug_status {
     type: string
-    sql: bug_status ;;
+    sql: _bm_active_bugs_detail_data.bug_status ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: bug_type {
     type: string
-    sql: bug_type ;;
+    sql: _bm_active_bugs_detail_data.bug_type ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: closure_slo {
     type: string
-    sql: closure_slo ;;
+    sql: _bm_active_bugs_detail_data.closure_slo ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
@@ -124,7 +124,7 @@ view: _bm_active_bugs_detail_data {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: creation_date ;;
+    sql: _bm_active_bugs_detail_data.creation_date ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
@@ -133,61 +133,61 @@ view: _bm_active_bugs_detail_data {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: last_modified_date ;;
+    sql: _bm_active_bugs_detail_data.last_modified_date ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: latest_component_path {
     type: string
-    sql: latest_component_path ;;
+    sql: _bm_active_bugs_detail_data.latest_component_path ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: manager_name {
     type: string
-    sql: manager_name ;;
+    sql: _bm_active_bugs_detail_data.manager_name ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: priority {
     type: string
-    sql: priority ;;
+    sql: _bm_active_bugs_detail_data.priority ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: response_slo {
     type: string
-    sql: response_slo ;;
+    sql: _bm_active_bugs_detail_data.response_slo ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: slo_flg {
     type: string
-    sql: slo_flg ;;
+    sql: _bm_active_bugs_detail_data.slo_flg ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: slo_status {
     type: string
-    sql: slo_status ;;
+    sql: _bm_active_bugs_detail_data.slo_status ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: status {
     type: string
-    sql: status ;;
+    sql: _bm_active_bugs_detail_data.status ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: title {
     type: string
-    sql: title ;;
+    sql: _bm_active_bugs_detail_data.title ;;
     view_label: "Bug Management SLO"
     hidden: no
   }
   dimension: total {
     type: number
-    sql: total ;;
+    sql: _bm_active_bugs_detail_data.total ;;
     view_label: "Bug Management SLO"
     hidden: no
   }

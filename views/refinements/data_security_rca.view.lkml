@@ -61,7 +61,7 @@ view: +three_pdc_metrics_demo{
     link: {
       # label: "SLO Score"
       label: "3PDC Data Security RCA"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/9?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+      url: "/dashboards/three_pdc_metrics_poc::3pdc_data_security_rca?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
       }
     value_format: "0.00\%"
     label: "Data Security RCA (Target: 100%)"
@@ -90,44 +90,44 @@ view: _ds_rca_detail_data {
 
   dimension: bug_id {
     type: number
-    sql: bug_id ;;
+    sql: _ds_rca_detail_data.bug_id ;;
     value_format_name: id
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: campus {
     type: string
-    sql: campus ;;
+    sql: _ds_rca_detail_data.campus ;;
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: location_type {
     type: string
-    sql: location_type ;;
+    sql: _ds_rca_detail_data.location_type ;;
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: rca_duration_days {
     type: number
-    sql: rca_duration_days ;;
+    sql: _ds_rca_detail_data.rca_duration_days ;;
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: slip_root_cause {
     type: string
-    sql: slip_root_cause ;;
+    sql: _ds_rca_detail_data.slip_root_cause ;;
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: verified_by_om_days {
     type: number
-    sql: verified_by_om_days ;;
+    sql: _ds_rca_detail_data.verified_by_om_days ;;
     view_label: "Data Security RCA"
     hidden: no
   }
   dimension: violation_type {
     type: string
-    sql: violation_type ;;
+    sql: _ds_rca_detail_data.violation_type ;;
     view_label: "Data Security RCA"
     hidden: no
   }

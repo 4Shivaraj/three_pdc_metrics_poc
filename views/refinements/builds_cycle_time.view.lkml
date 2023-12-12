@@ -58,7 +58,7 @@ view: +three_pdc_metrics_demo{
     ;;
     link: {
       label: "3PDC Builds Cycle Time"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/14?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+      url: "/dashboards/three_pdc_metrics_poc::3pdc_builds_cycle_time?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
     }
     value_format: "0.00\%"
     # label: "SLO Score"
@@ -82,85 +82,85 @@ view: _bct_detail_summary_data {
 
   dimension: bct_met_count {
     type: number
-    sql: ${TABLE}.bct_met_count ;;
+    sql: _bct_detail_summary_data.bct_met_count ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: bct_miss_count {
     type: number
-    sql: ${TABLE}.bct_miss_count ;;
+    sql: _bct_detail_summary_data.bct_miss_count ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: bct_total_count {
     type: number
-    sql: ${TABLE}.bct_total_count ;;
+    sql: _bct_detail_summary_data.bct_total_count ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: build_type {
     type: string
-    sql: build_type ;;
+    sql: _bct_detail_summary_data.build_type ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: comment {
     type: string
-    sql: comment ;;
+    sql: _bct_detail_summary_data.comment ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: is_marine_or_payload {
     type: yesno
-    sql: is_marine_or_payload ;;
+    sql: _bct_detail_summary_data.is_marine_or_payload ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: marine_payload_flag {
     type: string
-    sql: marine_payload_flag ;;
+    sql: _bct_detail_summary_data.marine_payload_flag ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: phase_id {
     type: string
-    sql: phase_id ;;
+    sql: _bct_detail_summary_data.phase_id ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: phase_owner {
     type: string
-    sql: phase_owner ;;
+    sql: _bct_detail_summary_data.phase_owner ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: process_model {
     type: string
-    sql: process_model ;;
+    sql: _bct_detail_summary_data.process_model ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: root_cause_owner {
     type: string
-    sql: root_cause_owner ;;
+    sql: _bct_detail_summary_data.root_cause_owner ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: slip_code_tier_1 {
     type: string
-    sql: slip_code_tier_1 ;;
+    sql: _bct_detail_summary_data.slip_code_tier_1 ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: slip_code_tier_2 {
     type: string
-    sql: slip_code_tier_2 ;;
+    sql: _bct_detail_summary_data.slip_code_tier_2 ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: slo_slip_type {
     type: string
-    sql: slo_slip_type ;;
+    sql: _bct_detail_summary_data.slo_slip_type ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
@@ -169,13 +169,13 @@ view: _bct_detail_summary_data {
     timeframes: [raw, date, week, month, quarter, year]
     convert_tz: no
     datatype: date
-    sql: slo_target_date ;;
+    sql: _bct_detail_summary_data.slo_target_date ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }
   dimension: viewpoint_link {
     type: string
-    sql: viewpoint_link ;;
+    sql: _bct_detail_summary_data.viewpoint_link ;;
     view_label: "Builds Cycle Time"
     hidden: no
   }

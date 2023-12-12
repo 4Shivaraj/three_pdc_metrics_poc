@@ -53,7 +53,7 @@ view: +three_pdc_metrics_demo{
     # label: "SLO Score"
     link: {
       label: "3PDC Data Security"
-      url: "https://68d5f542-af0a-42c3-b66e-7d93874cb867.looker.app/dashboards/8?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
+      url: "/dashboards/three_pdc_metrics_poc::3pdc_data_security?Region={{ _filters['three_pdc_metrics_demo.region']| url_encode }}&Metro={{ _filters['three_pdc_metrics_demo.metro']| url_encode }}&Duration%20Type={{ _filters['three_pdc_metrics_demo.param_duration_type']| url_encode }}&Duration%20Date={{ _filters['three_pdc_metrics_demo.p_duration_date']| url_encode }}"
     }
     view_label: "Data Security"
     hidden: no
@@ -74,31 +74,31 @@ view: _ds_detail_data {
 
   dimension: building {
     type: string
-    sql: building ;;
+    sql: _ds_detail_data.building ;;
     view_label: "Data Security"
     hidden: no
   }
   dimension: efs_tiers {
     type: string
-    sql: efs_tiers ;;
+    sql: _ds_detail_data.efs_tiers ;;
     view_label: "Data Security"
     hidden: no
   }
   dimension: hwops_violations {
     type: number
-    sql: hwops_violations ;;
+    sql: _ds_detail_data.hwops_violations ;;
     view_label: "Data Security"
     hidden: no
   }
   dimension: managed_by_google {
     type: string
-    sql: managed_by_google ;;
+    sql: _ds_detail_data.managed_by_google ;;
     view_label: "Data Security"
     hidden: no
   }
   dimension: slip_details {
     type: string
-    sql: slip_details ;;
+    sql: _ds_detail_data.slip_details ;;
     view_label: "Data Security"
     hidden: no
   }
